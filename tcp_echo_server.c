@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 	servaddr.sin_port = htons(SERV_PORT);
 	bind(listenfd, (SA*)&servaddr, sizeof(servaddr));
 	listen(listenfd, LISTENQ);
+	Signal(SIGCHLD,sig_chld);
 	for(;;)
 	{
 		clilen = sizeof(cliaddr);
