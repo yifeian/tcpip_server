@@ -22,16 +22,33 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <sys/un.h>
+#include <sys/time.h>
+#include <sys/select.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <pthread.h>
 
 #define SERV_PORT 9877
 #define SA struct sockaddr
 #define LISTENQ   1024
-#define	MAXLINE		4096	/* max text line length */
+#define	MAXLINE		65507	/* max text line length */
 #define	BUFFSIZE	8192	/* buffer size for reads and writes */
+#define	max(a,b)	((a) > (b) ? (a) : (b))
+typedef struct
+{
+	long arg1;
+	long arg2;
+}args;
+
+typedef struct
+{
+	long sum;
+}result;
 typedef	void	Sigfunc(int);
 Sigfunc *Signal(int, Sigfunc *);
 ssize_t readn(int filedes, void *buff, size_t nbytes);
 ssize_t written(int filedes, const void *buff, size_t nbytes);
 ssize_t readline(int filedes, void *buff, size_t maxlen);
-
+int Accept(int fd, SA *sa, socklen_t *salenptr);
+void sig_chld(int signo);
 #endif /* UNP_H_ */

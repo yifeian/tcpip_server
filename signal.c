@@ -8,7 +8,7 @@
 
 /* include signal */
 #include	"unp.h"
-
+// void (*singal(int signo, void (*func)(int)));
 Sigfunc *
 signal(int signo, Sigfunc *func)
 {
